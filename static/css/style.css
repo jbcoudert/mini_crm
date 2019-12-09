@@ -1,0 +1,30 @@
+header {
+  background-color: #383c42;
+  width: 100%; }
+  header nav a {
+    text-decoration: none;
+    color: white; }
+  header nav .subNav {
+    margin: auto; }
+    header nav .subNav a {
+      text-decoration: none;
+      color: #7c7f83; }
+      header nav .subNav a:hover {
+        color: white; }
+
+main {
+  width: 75%;
+  margin: auto; }
+  main .nav-justified {
+    margin: 0.5rem 0; }
+  main .search {
+    margin-bottom: 0.5rem; }
+    main .search .btnSearch {
+      margin-left: 1.5rem;
+      padding: 0.39rem 1.5rem; }
+  main .card img {
+    max-height: 200px; }
+  main .card i {
+    font-size: 1.2rem; }
+
+/*# sourceMappingURL=style.css.map */
