@@ -1,0 +1,23 @@
+
+main {
+    width: 75%;
+    margin: auto;
+    .nav-justified {
+        margin: 0.5rem 0;
+    }
+    .search {
+        margin-bottom: 0.5rem;
+        .btnSearch {
+            margin-left: 1.5rem;
+            padding:0.39rem 1.5rem;
+        }
+    }
+    .card {
+        img {
+            max-height: 200px;
+        }
+        i{
+            font-size: 1.2rem;
+        }
+    }
+}
