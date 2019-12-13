@@ -36,23 +36,7 @@ if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['adresse']))
     <div class="container-fluid p-0">
         <div class="row no-gutters">
             <div class="col-12">
-                <header>
-                    <nav class="navbar navbar-expand-lg ">
-                        <a class="navbar-brand" href="index.php">My mini CRM</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse topNav" id="navbarNavAltMarkup">
-                            <div class="navbar-nav subNav">
-                                <a class="nav-item nav-link active" href="index.php">Listings</a>
-                                <a class="nav-item nav-link" href="#">Ajouter Client</a>
-                                <a class="nav-item nav-link" href="addentreprise.php">Ajouter Entreprise</a>
-                            </div>
-                        </div>
-                    </nav>
-                </header>
+                <?php require('header.php'); ?>
             </div>
             <main>
                 <?php

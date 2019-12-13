@@ -24,23 +24,7 @@ $db = new PDO("mysql:host=localhost;dbname=crm_desbg", 'root', 'plop');
     <div class="container-fluid p-0">
         <div class="row no-gutters">
             <div class="col-12">
-                <header>
-                    <nav class="navbar navbar-expand-lg ">
-                        <a class="navbar-brand" href="#">My mini CRM</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse topNav" id="navbarNavAltMarkup">
-                            <div class="navbar-nav subNav">
-                                <a class="nav-item nav-link active" href="#">Listings</a>
-                                <a class="nav-item nav-link" href="addclient.php">Ajouter Client</a>
-                                <a class="nav-item nav-link" href="addentreprise.php">Ajouter Entreprise</a>
-                            </div>
-                        </div>
-                    </nav>
-                </header>
+                <?php require('header.php'); ?>
             </div>
             <main>
                 <div class="col-12">
@@ -60,17 +44,28 @@ $db = new PDO("mysql:host=localhost;dbname=crm_desbg", 'root', 'plop');
                                 </li>
                             </ul>
                             <div class="col-12 search p-0">
+                                <form action="." method="get">
                                 <div class="input-group">
-                                    <input type="text" class="form-control rounded" placeholder="Recherche..."
+                                    <input type="text" class="form-control rounded w-100" placeholder="Recherche..."
                                         aria-label="Recipient's username with two button addons"
-                                        aria-describedby="button-addon4">
+                                        aria-describedby="button-addon4" name="query">
                                     <div class="" id="button-addon4">
-                                        <button class="btn btn-primary btnSearch" type="button"><i
+                                        <button class="btn btn-primary btnSearch" type="submit"><i
                                                 class="fas fa-search"></i></button>
                                         <button class="btn btn-primary btnSearch" type="button"><i
                                                 class="fas fa-ban"></i></button>
                                     </div>
                                 </div>
+                                </form>
+                                <?php
+                                    if(isset($_GET['query'])) {
+                                        $req = $db->query("SELECT * FROM Client WHERE nom LIKE '%".$_GET['query']."%'");
+                                    } elseif (isset($_GET['query'])) {
+                                        $req = $db->query("SELECT * FROM Client WHERE prenom LIKE '%".$_GET['query']."%'");
+                                    } else {
+                                        $req = $db->query('SELECT * FROM Client');  
+                                    }
+                                ?>
                             </div>
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
@@ -80,7 +75,7 @@ $db = new PDO("mysql:host=localhost;dbname=crm_desbg", 'root', 'plop');
                                         <div class="accordion" id="accordionExample1">
                                             <?php
 
-                                                $req = $db->query('SELECT * FROM Client');                                      
+                                                                                    
                                                 foreach ($req as $row){
                                                                         
                                             ?>
@@ -108,10 +103,13 @@ $db = new PDO("mysql:host=localhost;dbname=crm_desbg", 'root', 'plop');
                                                                         <h5 class="card-title"><?php echo $row['prenom'] . " " . $row['nom']; ?></h5>
                                                                         <p class="card-text"><?php echo $row['adresse']; ?>
                                                                         </p>
-                                                                        
+                                                                        <?php
+                                                                            // $req3 = $db->query('SELECT * FROM Entreprise');
+
+
+                                                                        ?>
                                                                         <p class="card-text"><small
-                                                                                class="text-muted">Irish
-                                                                                Pub</small></p>
+                                                                                class="text-muted"></small></p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-1 text-center mt-3 text-primary">

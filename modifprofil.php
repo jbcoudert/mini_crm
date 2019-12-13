@@ -1,22 +1,14 @@
 <?php
 
 $db = new PDO("mysql:host=localhost;dbname=crm_desbg", 'root', 'plop');
-// echo $_POST['nom'];
-// var_dump($nom);
-// var_dump($prenom);
-// var_dump($adresse);
-if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['adresse'])) {
+
+if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['adresse']) && isset($_GET['id'])) {
     $nom =  $_POST['nom'];
     $prenom = $_POST['prenom'];
     $adresse = $_POST['adresse'];
-    // $req3 = $db->query("SELECT * FROM Client");
-    $req3 = $db->query("UPDATE Client SET nom = '$nom', prenom = '$prenom', adresse = '$adresse' WHERE id = ".$_GET["id"]);
-    echo $nom;
-    echo $prenom;
-    echo $adresse;
-    
+    $id = $_POST["id"];
+    $req3 = $db->query("UPDATE Client SET nom = '$nom', prenom = '$prenom', adresse = '$adresse' WHERE id = ".$_GET["id"]);   
 }
-echo "UPDATE Client SET nom = '$nom', prenom = '$prenom', adresse = '$adresse' WHERE id = ".$_GET["id"];
 ?>
 
 <!doctype html>
@@ -39,23 +31,7 @@ echo "UPDATE Client SET nom = '$nom', prenom = '$prenom', adresse = '$adresse' W
     <div class="container-fluid p-0">
         <div class="row no-gutters">
             <div class="col-12">
-                <header>
-                    <nav class="navbar navbar-expand-lg ">
-                        <a class="navbar-brand" href="index.php">My mini CRM</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse topNav" id="navbarNavAltMarkup">
-                            <div class="navbar-nav subNav">
-                                <a class="nav-item nav-link active" href="index.php">Listings</a>
-                                <a class="nav-item nav-link" href="addclient.php">Ajouter Client</a>
-                                <a class="nav-item nav-link" href="addentreprise.php">Ajouter Entreprise</a>
-                            </div>
-                        </div>
-                    </nav>
-                </header>
+                <?php require('header.php'); ?>
             </div>
             <main>
                 <div class="col-12">
@@ -65,7 +41,7 @@ echo "UPDATE Client SET nom = '$nom', prenom = '$prenom', adresse = '$adresse' W
                         $req2 = $req->fetch();
                     ?>
                     <h2 class="text-center py-4">Mise a jour de "<?php  echo $req2['prenom']. " " . $req2['nom']; ?>"</h2>
-                    <form action="index.php" method="POST">
+                    <form action="modifprofil.php?id=<?php echo $req2["id"] ?>" method="POST">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <input type="text" class="form-control" name="prenom" id="inputEmail4"  value="<?php  echo $req2['prenom']; ?>">
@@ -80,11 +56,17 @@ echo "UPDATE Client SET nom = '$nom', prenom = '$prenom', adresse = '$adresse' W
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <select id="inputState" class="form-control">
-                                    <option selected>entreprise du mec et choix</option>
-                                    <option>...</option>
+                                    <option selected>choix entreprise</option>
+                        <?php
+                            $req4 = $db->query('SELECT * FROM Entreprise');
+                            foreach ($req4 as $value) {
+                        ?>
+                                    <option><?php echo $value['denomination'] ?></option>
+                            <?php } ?>
                                 </select>
                             </div> 
                             <div class="col-md-6">
+                                <input type="hidden" name="<?php echo $req2['id'] ?>">
                                 <button type="submit" class="btn btn-primary">Enregistrer</button>
 
                             </div>
